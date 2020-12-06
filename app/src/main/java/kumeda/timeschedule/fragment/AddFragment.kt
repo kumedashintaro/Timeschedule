@@ -2,14 +2,25 @@ package kumeda.timeschedule.fragment
 
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.provider.Settings
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TimePicker
+import android.widget.Toast
+import androidx.room.Room
 import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_add.view.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kumeda.timeschedule.R
+import kumeda.timeschedule.TimeScheduleDAO
+import kumeda.timeschedule.TimeScheduleData
+import kumeda.timeschedule.TimeScheduleDatabase
+import java.util.Observer
 
 
 class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
@@ -18,6 +29,20 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
     var minute = 0
     private var savedHour = 0
     private var savedMinute = 0
+
+    private lateinit var db: TimeScheduleDatabase
+    private lateinit var dao: TimeScheduleDAO
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        this.db = Room.databaseBuilder(
+            requireContext(),
+            TimeScheduleDatabase::class.java,
+            "timeSchedule.db"
+        ).build()
+        this.dao = this.db.timeScheduleDAO()
+    }
+
 
 
     override fun onCreateView(
@@ -37,7 +62,27 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
            // TimePickerDialog(activity, this, hour, minute, true).show()
         }
 
+        view.add_button.setOnClickListener{
+            //コールチン、メインスレッドでデータベースに書き込みは不可、
+            GlobalScope.launch {
+                withContext(Dispatchers.IO){
+                    val timeScheduleData = TimeScheduleData(id = 0, title = "タイムスケジュール")
+                    dao.insert(timeScheduleData)
+                }
+                withContext(Dispatchers.Main){
+                    Toast.makeText(requireContext(),"OK!", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        }
         return view
+    }
+
+    override fun onStart() {
+        super.onStart()
+        this.dao.getAll().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            println(it)
+        })
     }
 
 
