@@ -3,8 +3,9 @@ package kumeda.timeschedule
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
-data  class TimeScheduleData(
+@Entity(tableName = "time_schedule_table")
+data class TimeScheduleData(
     @PrimaryKey(autoGenerate = true)
-    var id: Int, val title: String) {
-}
+    var id: Int,
+    val title: String
+)

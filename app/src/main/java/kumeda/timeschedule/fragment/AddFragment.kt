@@ -44,7 +44,6 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
     }
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,25 +51,25 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
 
         val view = inflater.inflate(R.layout.fragment_add, container, false)
 
-        view.start_time.setOnClickListener{
+        view.start_time.setOnClickListener {
 
             TimePickerDialog(activity, this, hour, minute, true).show()
 
         }
 //TODO:endStart入力を分けるようにする
-        view.end_time.setOnClickListener{
-           // TimePickerDialog(activity, this, hour, minute, true).show()
+        view.end_time.setOnClickListener {
+            // TimePickerDialog(activity, this, hour, minute, true).show()
         }
 
-        view.add_button.setOnClickListener{
+        view.add_button.setOnClickListener {
             //コールチン、メインスレッドでデータベースに書き込みは不可、
             GlobalScope.launch {
-                withContext(Dispatchers.IO){
+                withContext(Dispatchers.IO) {
                     val timeScheduleData = TimeScheduleData(id = 0, title = "タイムスケジュール")
                     dao.insert(timeScheduleData)
                 }
-                withContext(Dispatchers.Main){
-                    Toast.makeText(requireContext(),"OK!", Toast.LENGTH_SHORT).show()
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(requireContext(), "OK!", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -86,12 +85,11 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
     }
 
 
-
     override fun onTimeSet(view: TimePicker?, hour: Int, minute: Int) {
         savedHour = hour
         savedMinute = minute
-            start_time.text = "$savedHour:$savedMinute"
-            //end_time.text = "$savedHour:$savedMinute"
+        start_time.text = "$savedHour:$savedMinute"
+        //end_time.text = "$savedHour:$savedMinute"
     }
 
 }
