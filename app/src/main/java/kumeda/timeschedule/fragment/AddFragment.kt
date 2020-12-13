@@ -2,7 +2,6 @@ package kumeda.timeschedule.fragment
 
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.provider.Settings
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +19,6 @@ import kumeda.timeschedule.R
 import kumeda.timeschedule.TimeScheduleDAO
 import kumeda.timeschedule.TimeScheduleData
 import kumeda.timeschedule.TimeScheduleDatabase
-import java.util.Observer
 
 
 class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
@@ -66,7 +64,7 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
             GlobalScope.launch {
                 withContext(Dispatchers.IO) {
                     val timeScheduleData = TimeScheduleData(id = 0, title = "タイムスケジュール")
-                    dao.insert(timeScheduleData)
+                    dao.addTimeSchedule(timeScheduleData)
                 }
                 withContext(Dispatchers.Main) {
                     Toast.makeText(requireContext(), "OK!", Toast.LENGTH_SHORT).show()
@@ -79,7 +77,7 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
 
     override fun onStart() {
         super.onStart()
-        this.dao.getAll().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        this.dao.readAllData().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             println(it)
         })
     }
