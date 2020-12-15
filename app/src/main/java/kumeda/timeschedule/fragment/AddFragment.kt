@@ -2,12 +2,14 @@ package kumeda.timeschedule.fragment
 
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TimePicker
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_add.view.*
@@ -15,13 +17,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kumeda.timeschedule.R
-import kumeda.timeschedule.TimeScheduleDAO
-import kumeda.timeschedule.TimeScheduleData
-import kumeda.timeschedule.TimeScheduleDatabase
+import kumeda.timeschedule.*
 
 
 class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
+    //ViewModel
+    private lateinit var timeScheduleViewModel: TimeScheduleViewModel
 
     var hour = 0
     var minute = 0
@@ -31,23 +32,28 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
     private lateinit var db: TimeScheduleDatabase
     private lateinit var dao: TimeScheduleDAO
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        this.db = Room.databaseBuilder(
-            requireContext(),
-            TimeScheduleDatabase::class.java,
-            "timeSchedule.db"
-        ).build()
-        this.dao = this.db.timeScheduleDAO()
-    }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        this.db = Room.databaseBuilder(
+//            requireContext(),
+//            TimeScheduleDatabase::class.java,
+//            "timeSchedule.db"
+//        ).build()
+//        this.dao = this.db.timeScheduleDAO()
+//    }
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_add, container, false)
+
+        //Providerが必要、でgetしている
+        timeScheduleViewModel = ViewModelProvider(this).get(TimeScheduleViewModel::class.java)
+
+
 
         view.start_time.setOnClickListener {
 
@@ -60,20 +66,48 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
         }
 
         view.add_button.setOnClickListener {
-            //コールチン、メインスレッドでデータベースに書き込みは不可、
-            GlobalScope.launch {
-                withContext(Dispatchers.IO) {
-                    val timeScheduleData = TimeScheduleData(id = 0, title = "タイムスケジュール")
-                    dao.addTimeSchedule(timeScheduleData)
-                }
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(requireContext(), "OK!", Toast.LENGTH_SHORT).show()
-                }
-            }
+
+            insertDataToDatabase()
+
+//            //コールチン、メインスレッドでデータベースに書き込みは不可、
+//            GlobalScope.launch {
+//                withContext(Dispatchers.IO) {
+//                    val timeScheduleData = TimeScheduleData(id = 0, title = "タイムスケジュール")
+//                    dao.addTimeSchedule(timeScheduleData)
+//                }
+//                withContext(Dispatchers.Main) {
+//                    Toast.makeText(requireContext(), "OK!", Toast.LENGTH_SHORT).show()
+//                }
+//            }
 
         }
         return view
     }
+
+    private fun insertDataToDatabase() {
+        val title = title_edit.text.toString()
+        val contents = contents_edit.text.toString()
+        //TODO 時間を実装
+
+        if (inputCheck(title, contents)) {
+            val timeScheduleData = TimeScheduleData(
+                0,
+                title,
+                contents
+            )
+            //databaseに追加
+            timeScheduleViewModel.addTimeSchedule(timeScheduleData)
+            Toast.makeText(requireContext(), "データベースに追加出来たで！", Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(requireContext(), "入力漏れあるで！", Toast.LENGTH_LONG).show()
+        }
+
+    }
+
+    private fun inputCheck(title: String, contents: String): Boolean {
+        return !(TextUtils.isEmpty(title) && TextUtils.isEmpty(contents))
+    }
+
 
     override fun onStart() {
         super.onStart()

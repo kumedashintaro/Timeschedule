@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class TimeScheduleData(
     @PrimaryKey(autoGenerate = true)
     var id: Int,
-    val title: String
+    val title: String,
+    val content: String
 )
