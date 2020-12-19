@@ -7,9 +7,9 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class TimeScheduleViewModel(application: Application): AndroidViewModel(application) {
+class TimeScheduleViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val readAllData: LiveData<List<TimeScheduleData>>
+    val readAllData: LiveData<List<TimeScheduleData>>
     private val repository: TimeScheduleRepository
 
     init {
@@ -18,8 +18,8 @@ class TimeScheduleViewModel(application: Application): AndroidViewModel(applicat
         readAllData = repository.readAllData
     }
 
-    fun addTimeSchedule(timeScheduleData: TimeScheduleData){
-        viewModelScope.launch (Dispatchers.IO){
+    fun addTimeSchedule(timeScheduleData: TimeScheduleData) {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.addTimeSchedule(timeScheduleData)
         }
     }

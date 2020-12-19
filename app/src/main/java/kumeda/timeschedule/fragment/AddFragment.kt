@@ -9,14 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TimePicker
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.room.Room
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_add.view.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kumeda.timeschedule.*
 
 
@@ -49,9 +46,24 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_add, container, false)
-
         //Providerが必要、でgetしている
         timeScheduleViewModel = ViewModelProvider(this).get(TimeScheduleViewModel::class.java)
+
+        // Recyclerview
+        val adapter = ListAdapter()
+        val recyclerView = view.title_text
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        // UserViewModel
+        timeScheduleViewModel = ViewModelProvider(this).get(timeScheduleViewModel::class.java)
+        timeScheduleViewModel.readAllData.observe(
+            viewLifecycleOwner,
+            Observer { timeSchedule -> adapter.setData(timeSchedule) })
+
+
+
+
 
 
 
@@ -109,12 +121,12 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
     }
 
 
-    override fun onStart() {
-        super.onStart()
-        this.dao.readAllData().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            println(it)
-        })
-    }
+//    override fun onStart() {
+//        super.onStart()
+//        this.dao.readAllData().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+//            println(it)
+//        })
+//    }
 
 
     override fun onTimeSet(view: TimePicker?, hour: Int, minute: Int) {
