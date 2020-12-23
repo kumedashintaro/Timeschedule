@@ -9,5 +9,21 @@
         android:id="@+id/addFragment"
         android:name="kumeda.timeschedule.fragment.AddFragment"
         android:label="fragment_add"
-        tools:layout="@layout/fragment_add" />
+        tools:layout="@layout/fragment_add" >
+        <action
+            android:id="@+id/action_addFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="kumeda.timeschedule.fragment.UpdateFragment"
+        android:label="fragment_update"
+        tools:layout="@layout/fragment_update" >
+        <action
+            android:id="@+id/action_updateFragment_to_addFragment"
+            app:destination="@id/addFragment" />
+        <argument
+            android:name="currentTimeSchedule"
+            app:argType="kumeda.timeschedule.TimeScheduleData" />
+    </fragment>
 </navigation>

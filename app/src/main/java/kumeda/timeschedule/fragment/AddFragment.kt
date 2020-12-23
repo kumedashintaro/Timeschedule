@@ -18,6 +18,8 @@ import kumeda.timeschedule.*
 
 
 class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
+
+
     //ViewModel
     private lateinit var timeScheduleViewModel: TimeScheduleViewModel
 
@@ -67,17 +69,17 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
 
 
 
-        view.start_time.setOnClickListener {
+        view.update_start_time.setOnClickListener {
 
             TimePickerDialog(activity, this, hour, minute, true).show()
 
         }
 //TODO:endStart入力を分けるようにする
-        view.end_time.setOnClickListener {
+        view.update_end_time.setOnClickListener {
             // TimePickerDialog(activity, this, hour, minute, true).show()
         }
 
-        view.add_button.setOnClickListener {
+        view.update_button.setOnClickListener {
 
             insertDataToDatabase()
 
@@ -98,7 +100,7 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
 
     private fun insertDataToDatabase() {
         val title = title_edit.text.toString()
-        val contents = contents_edit.text.toString()
+        val contents = update_contents_edit.text.toString()
         //TODO 時間を実装
 
         if (inputCheck(title, contents)) {
@@ -132,7 +134,7 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
     override fun onTimeSet(view: TimePicker?, hour: Int, minute: Int) {
         savedHour = hour
         savedMinute = minute
-        start_time.text = "$savedHour:$savedMinute"
+        update_start_time.text = "$savedHour:$savedMinute"
         //end_time.text = "$savedHour:$savedMinute"
     }
 
