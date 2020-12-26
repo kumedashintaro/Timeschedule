@@ -1,11 +1,13 @@
 package kumeda.timeschedule
 
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.custom_row.view.*
+import kumeda.timeschedule.fragment.AddFragmentDirections
 
 
 class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
@@ -28,10 +30,9 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
         holder.itemView.content_text.text = currentItem.content
 
         holder.itemView.rowLayout.setOnClickListener {
-            val action = ListFragmentDirections.actionListFragmentToUpdateFragment(currentItem)
+            val action = AddFragmentDirections.actionAddFragmentToUpdateFragment(currentItem)
             holder.itemView.findNavController().navigate(action)
         }
-
     }
 
     fun setData(timeScheduleData: List<TimeScheduleData>){

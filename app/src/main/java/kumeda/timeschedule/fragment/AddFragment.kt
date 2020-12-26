@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_add.*
+import kotlinx.android.synthetic.main.fragment_add.update_start_time
 import kotlinx.android.synthetic.main.fragment_add.view.*
 import kumeda.timeschedule.*
 
@@ -100,7 +101,7 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
 
     private fun insertDataToDatabase() {
         val title = title_edit.text.toString()
-        val contents = update_contents_edit.text.toString()
+        val contents = add_contents_edit.text.toString()
         //TODO 時間を実装
 
         if (inputCheck(title, contents)) {

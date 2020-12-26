@@ -1,6 +1,7 @@
 package kumeda.timeschedule.fragment
 
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -37,7 +38,15 @@ class UpdateFragment : Fragment() {
     }
 
     private fun updateItem() {
-        val contents = update_contents_edit
+        val contents = update_contents_edit.toString()
+
+        //if(inputCheck(contents))
+
     }
+
+    private fun inputCheck(contents: String): Boolean {
+        return !(TextUtils.isEmpty(contents))
+    }
+
 
 }
