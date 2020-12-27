@@ -6,11 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_update.*
 import kotlinx.android.synthetic.main.fragment_update.view.*
 import kumeda.timeschedule.R
+import kumeda.timeschedule.TimeScheduleData
 import kumeda.timeschedule.TimeScheduleViewModel
 
 class UpdateFragment : Fragment() {
@@ -28,7 +32,7 @@ class UpdateFragment : Fragment() {
 
         timeScheduleViewModel = ViewModelProvider(this).get(TimeScheduleViewModel::class.java)
 
-        view.update_contents_edit.setText(args.currentTimeSchedule.content)
+        view.update_content_edit.setText(args.currentTimeSchedule.content)
 
         view.update_button.setOnClickListener {
             updateItem()
@@ -38,9 +42,23 @@ class UpdateFragment : Fragment() {
     }
 
     private fun updateItem() {
-        val contents = update_contents_edit.toString()
+        val title = "タイトル"
+        val content = update_content_edit.text.toString()
 
-        //if(inputCheck(contents))
+        print("title$title")
+
+        if (inputCheck(content)) {
+
+            val updateTimeSchedule = TimeScheduleData(args.currentTimeSchedule.id, title, content)
+
+            timeScheduleViewModel.updateTimeSchedule(updateTimeSchedule)
+
+            findNavController().navigate(R.id.action_updateFragment_to_addFragment)
+
+            Toast.makeText(requireContext(), "修正できたで!", Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(requireContext(), "エラーや！", Toast.LENGTH_LONG).show()
+        }
 
     }
 

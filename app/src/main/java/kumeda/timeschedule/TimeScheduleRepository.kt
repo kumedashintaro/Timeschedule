@@ -11,5 +11,9 @@ class TimeScheduleRepository(private val timeScheduleDao: TimeScheduleDAO) {
     suspend fun addTimeSchedule(timeScheduleData: TimeScheduleData) {
         timeScheduleDao.addTimeSchedule(timeScheduleData)
     }
+
+    suspend fun updateTimeSchedule(timeScheduleData: TimeScheduleData){
+        timeScheduleDao.updateTimeSchedule(timeScheduleData)
+    }
 }
 

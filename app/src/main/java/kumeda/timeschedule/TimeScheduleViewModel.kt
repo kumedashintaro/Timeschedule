@@ -23,4 +23,10 @@ class TimeScheduleViewModel(application: Application) : AndroidViewModel(applica
             repository.addTimeSchedule(timeScheduleData)
         }
     }
+
+    fun updateTimeSchedule(timeScheduleData: TimeScheduleData) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateTimeSchedule(timeScheduleData)
+        }
+    }
 }
