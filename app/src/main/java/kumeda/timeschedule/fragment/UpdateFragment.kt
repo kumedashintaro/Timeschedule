@@ -38,6 +38,10 @@ class UpdateFragment : Fragment() {
             updateItem()
         }
 
+        view.delete_button.setOnClickListener {
+            deleteItem()
+        }
+
         return view
     }
 
@@ -59,6 +63,9 @@ class UpdateFragment : Fragment() {
         } else {
             Toast.makeText(requireContext(), "エラーや！", Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun deleteItem() {
 
     }
 
