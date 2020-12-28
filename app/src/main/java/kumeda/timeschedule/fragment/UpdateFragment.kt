@@ -66,12 +66,13 @@ class UpdateFragment : Fragment() {
     }
 
     private fun deleteItem() {
-
+        timeScheduleViewModel.deleteTimeSchedule(args.currentTimeSchedule)
+        findNavController().navigate(R.id.action_updateFragment_to_addFragment)
+        Toast.makeText(requireContext(), "削除したで!", Toast.LENGTH_LONG).show()
     }
+
 
     private fun inputCheck(contents: String): Boolean {
         return !(TextUtils.isEmpty(contents))
     }
-
-
 }
