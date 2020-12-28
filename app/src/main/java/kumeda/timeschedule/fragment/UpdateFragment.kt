@@ -10,12 +10,11 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_update.*
 import kotlinx.android.synthetic.main.fragment_update.view.*
 import kumeda.timeschedule.R
 import kumeda.timeschedule.TimeScheduleData
-import kumeda.timeschedule.TimeScheduleViewModel
+import kumeda.timeschedule.viewmodel.TimeScheduleViewModel
 
 class UpdateFragment : Fragment() {
 
@@ -53,7 +52,11 @@ class UpdateFragment : Fragment() {
 
         if (inputCheck(content)) {
 
-            val updateTimeSchedule = TimeScheduleData(args.currentTimeSchedule.id, title, content)
+            val updateTimeSchedule = TimeScheduleData(
+                args.currentTimeSchedule.id,
+                title,
+                content
+            )
 
             timeScheduleViewModel.updateTimeSchedule(updateTimeSchedule)
 

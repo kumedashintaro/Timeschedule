@@ -1,9 +1,10 @@
-package kumeda.timeschedule
+package kumeda.timeschedule.data
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import kumeda.timeschedule.TimeScheduleData
 
 @Database(entities = [TimeScheduleData::class], version = 1, exportSchema = false)
 abstract class TimeScheduleDatabase : RoomDatabase() {
@@ -18,7 +19,8 @@ abstract class TimeScheduleDatabase : RoomDatabase() {
         private var INSTANCE: TimeScheduleDatabase? = null
 
         fun getDatabase(context: Context): TimeScheduleDatabase {
-            val tempInstance = INSTANCE
+            val tempInstance =
+                INSTANCE
             if (tempInstance != null) {
                 return tempInstance
             }

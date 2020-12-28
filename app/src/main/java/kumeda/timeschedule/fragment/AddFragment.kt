@@ -16,6 +16,11 @@ import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_add.update_start_time
 import kotlinx.android.synthetic.main.fragment_add.view.*
 import kumeda.timeschedule.*
+import kumeda.timeschedule.data.TimeScheduleDAO
+import kumeda.timeschedule.TimeScheduleData
+import kumeda.timeschedule.data.TimeScheduleDatabase
+import kumeda.timeschedule.list.ListAdapter
+import kumeda.timeschedule.viewmodel.TimeScheduleViewModel
 
 
 class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {

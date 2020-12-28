@@ -1,4 +1,4 @@
-package kumeda.timeschedule
+package kumeda.timeschedule.list
 
 
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.custom_row.view.*
+import kumeda.timeschedule.R
+import kumeda.timeschedule.TimeScheduleData
 import kumeda.timeschedule.fragment.AddFragmentDirections
 
 
@@ -17,7 +19,11 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
     class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        return MyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.custom_row, parent, false))
+        return MyViewHolder(
+            LayoutInflater.from(
+                parent.context
+            ).inflate(R.layout.custom_row, parent, false)
+        )
     }
 
     override fun getItemCount(): Int {

@@ -1,4 +1,4 @@
-package kumeda.timeschedule
+package kumeda.timeschedule.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -6,6 +6,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kumeda.timeschedule.TimeScheduleData
+import kumeda.timeschedule.data.TimeScheduleDatabase
+import kumeda.timeschedule.repository.TimeScheduleRepository
 
 class TimeScheduleViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -13,8 +16,11 @@ class TimeScheduleViewModel(application: Application) : AndroidViewModel(applica
     private val repository: TimeScheduleRepository
 
     init {
-        val timeScheduleDao = TimeScheduleDatabase.getDatabase(application).timeScheduleDAO()
-        repository = TimeScheduleRepository(timeScheduleDao)
+        val timeScheduleDao = TimeScheduleDatabase.getDatabase(
+            application
+        ).timeScheduleDAO()
+        repository =
+            TimeScheduleRepository(timeScheduleDao)
         readAllData = repository.readAllData
     }
 

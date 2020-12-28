@@ -1,6 +1,8 @@
-package kumeda.timeschedule
+package kumeda.timeschedule.repository
 
 import androidx.lifecycle.LiveData
+import kumeda.timeschedule.data.TimeScheduleDAO
+import kumeda.timeschedule.TimeScheduleData
 
 
 class TimeScheduleRepository(private val timeScheduleDao: TimeScheduleDAO) {

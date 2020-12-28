@@ -1,7 +1,8 @@
-package kumeda.timeschedule
+package kumeda.timeschedule.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import kumeda.timeschedule.TimeScheduleData
 
 @Dao
 interface TimeScheduleDAO {
