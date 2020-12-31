@@ -7,15 +7,13 @@
     tools:context=".fragment.AddFragment">
 
     <TextView
-        android:id="@+id/update_end_time"
+        android:id="@+id/end_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         android:text="00:00"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toStartOf="@+id/update_button"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView" />
 
@@ -29,10 +27,10 @@
         android:text="追加"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/update_end_time" />
+        app:layout_constraintTop_toTopOf="@+id/end_time" />
 
     <TextView
-        android:id="@+id/update_start_time"
+        android:id="@+id/start_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -50,11 +48,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:src="@drawable/ic_baseline_trending_flat_24"
-        app:layout_constraintBottom_toBottomOf="@+id/update_start_time"
-        app:layout_constraintEnd_toStartOf="@+id/update_end_time"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/update_start_time"
-        app:layout_constraintTop_toTopOf="@+id/update_start_time" />
+        app:layout_constraintBottom_toBottomOf="@+id/start_time"
+        app:layout_constraintStart_toEndOf="@+id/start_time"
+        app:layout_constraintTop_toTopOf="@+id/start_time" />
 
     <EditText
         android:id="@+id/add_contents_edit"
@@ -71,12 +67,12 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/title_text"
+        android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/update_start_time"
+        app:layout_constraintBottom_toTopOf="@+id/start_time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

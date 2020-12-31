@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_add.*
-import kotlinx.android.synthetic.main.fragment_add.update_start_time
+import kotlinx.android.synthetic.main.fragment_add.start_time
 import kotlinx.android.synthetic.main.fragment_add.view.*
 import kumeda.timeschedule.*
 import kumeda.timeschedule.data.TimeScheduleDAO
@@ -25,12 +25,12 @@ import kumeda.timeschedule.viewmodel.TimeScheduleViewModel
 
 class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
 
-    class Title {
+    class AddObject {
         companion object {
             var title: String = ""
+            var selectTime: Int = 0
         }
     }
-
 
     //ViewModel
     private lateinit var timeScheduleViewModel: TimeScheduleViewModel
@@ -43,17 +43,6 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
     private lateinit var db: TimeScheduleDatabase
     private lateinit var dao: TimeScheduleDAO
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        this.db = Room.databaseBuilder(
-//            requireContext(),
-//            TimeScheduleDatabase::class.java,
-//            "timeSchedule.db"
-//        ).build()
-//        this.dao = this.db.timeScheduleDAO()
-//    }
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,7 +54,7 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
 
         // Recyclerview
         val adapter = ListAdapter()
-        val recyclerView = view.title_text
+        val recyclerView = view.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
@@ -75,26 +64,23 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
             viewLifecycleOwner,
             Observer { timeSchedule -> adapter.setData(timeSchedule) })
 
-
-
-
-
-
-
-        view.update_start_time.setOnClickListener {
+        view.start_time.setOnClickListener {
 
             TimePickerDialog(activity, this, hour, minute, true).show()
+            AddObject.selectTime = 1
+
 
         }
 //TODO:endStart入力を分けるようにする
-        view.update_end_time.setOnClickListener {
-            // TimePickerDialog(activity, this, hour, minute, true).show()
+        view.end_time.setOnClickListener {
+            TimePickerDialog(activity, this, hour, minute, true).show()
+            AddObject.selectTime = 2
+
         }
 
         view.add_button.setOnClickListener {
 
             insertDataToDatabase()
-
 
 //            //コールチン、メインスレッドでデータベースに書き込みは不可、
 //            GlobalScope.launch {
@@ -113,15 +99,15 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
 
     private fun insertDataToDatabase() {
 
-        Title.title = title_edit.text.toString()
+        AddObject.title = title_edit.text.toString()
         val contents = add_contents_edit.text.toString()
         add_contents_edit.text.clear()
         //TODO 時間を実装
 
-        if (inputCheck(Title.title, contents)) {
+        if (inputCheck(AddObject.title, contents)) {
             val timeScheduleData = TimeScheduleData(
                 0,
-                Title.title,
+                AddObject.title,
                 contents
             )
             //databaseに追加
@@ -138,19 +124,14 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
     }
 
 
-//    override fun onStart() {
-//        super.onStart()
-//        this.dao.readAllData().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-//            println(it)
-//        })
-//    }
-
-
     override fun onTimeSet(view: TimePicker?, hour: Int, minute: Int) {
         savedHour = hour
         savedMinute = minute
-        update_start_time.text = "$savedHour:$savedMinute"
-        //end_time.text = "$savedHour:$savedMinute"
+        if (AddObject.selectTime == 1) {
+            start_time.text = "$savedHour:$savedMinute"
+        }
+        if (AddObject.selectTime == 2) {
+            end_time.text = "$savedHour:$savedMinute"
+        }
     }
-
 }
