@@ -25,6 +25,12 @@ import kumeda.timeschedule.viewmodel.TimeScheduleViewModel
 
 class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
 
+    class Title {
+        companion object {
+            var title: String = ""
+        }
+    }
+
 
     //ViewModel
     private lateinit var timeScheduleViewModel: TimeScheduleViewModel
@@ -85,7 +91,7 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
             // TimePickerDialog(activity, this, hour, minute, true).show()
         }
 
-        view.update_button.setOnClickListener {
+        view.add_button.setOnClickListener {
 
             insertDataToDatabase()
 
@@ -105,14 +111,15 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
     }
 
     private fun insertDataToDatabase() {
-        val title = title_edit.text.toString()
+
+        Title.title = title_edit.text.toString()
         val contents = add_contents_edit.text.toString()
         //TODO 時間を実装
 
-        if (inputCheck(title, contents)) {
+        if (inputCheck(Title.title, contents)) {
             val timeScheduleData = TimeScheduleData(
                 0,
-                title,
+                Title.title,
                 contents
             )
             //databaseに追加
