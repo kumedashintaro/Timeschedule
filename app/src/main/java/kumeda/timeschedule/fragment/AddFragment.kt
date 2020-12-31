@@ -95,6 +95,7 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
 
             insertDataToDatabase()
 
+
 //            //コールチン、メインスレッドでデータベースに書き込みは不可、
 //            GlobalScope.launch {
 //                withContext(Dispatchers.IO) {
@@ -114,6 +115,7 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
 
         Title.title = title_edit.text.toString()
         val contents = add_contents_edit.text.toString()
+        add_contents_edit.text.clear()
         //TODO 時間を実装
 
         if (inputCheck(Title.title, contents)) {
