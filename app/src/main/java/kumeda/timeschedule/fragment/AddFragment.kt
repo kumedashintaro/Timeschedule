@@ -21,6 +21,7 @@ import kumeda.timeschedule.TimeScheduleData
 import kumeda.timeschedule.data.TimeScheduleDatabase
 import kumeda.timeschedule.list.ListAdapter
 import kumeda.timeschedule.viewmodel.TimeScheduleViewModel
+import java.util.*
 
 
 class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
@@ -125,13 +126,13 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
 
 
     override fun onTimeSet(view: TimePicker?, hour: Int, minute: Int) {
-        savedHour = hour
-        savedMinute = minute
+        val str = String.format(Locale.US, "%d:%d", hour, minute)
+        
         if (AddObject.selectTime == 1) {
-            start_time.text = "$savedHour:$savedMinute"
+            start_time.text = str
         }
         if (AddObject.selectTime == 2) {
-            end_time.text = "$savedHour:$savedMinute"
+            end_time.text = str
         }
     }
 }
