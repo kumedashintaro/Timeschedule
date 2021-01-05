@@ -72,7 +72,7 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
 
 
         }
-//TODO:endStart入力を分けるようにする
+
         view.end_time.setOnClickListener {
             TimePickerDialog(activity, this, hour, minute, true).show()
             AddObject.selectTime = 2
@@ -82,18 +82,6 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
         view.add_button.setOnClickListener {
 
             insertDataToDatabase()
-
-//            //コールチン、メインスレッドでデータベースに書き込みは不可、
-//            GlobalScope.launch {
-//                withContext(Dispatchers.IO) {
-//                    val timeScheduleData = TimeScheduleData(id = 0, title = "タイムスケジュール")
-//                    dao.addTimeSchedule(timeScheduleData)
-//                }
-//                withContext(Dispatchers.Main) {
-//                    Toast.makeText(requireContext(), "OK!", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-
         }
         return view
     }
@@ -117,22 +105,20 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
         } else {
             Toast.makeText(requireContext(), "入力漏れあるで！", Toast.LENGTH_LONG).show()
         }
-
     }
 
     private fun inputCheck(title: String, contents: String): Boolean {
         return !(TextUtils.isEmpty(title) && TextUtils.isEmpty(contents))
     }
 
-
     override fun onTimeSet(view: TimePicker?, hour: Int, minute: Int) {
-        val str = String.format(Locale.US, "%d:%d", hour, minute)
-        
+        val setTime = String.format(Locale.US, "%d:%d", hour, minute)
+
         if (AddObject.selectTime == 1) {
-            start_time.text = str
+            start_time.text = setTime
         }
         if (AddObject.selectTime == 2) {
-            end_time.text = str
+            end_time.text = setTime
         }
     }
 }
