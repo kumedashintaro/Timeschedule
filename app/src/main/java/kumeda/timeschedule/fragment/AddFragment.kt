@@ -3,6 +3,7 @@ package kumeda.timeschedule.fragment
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +22,8 @@ import kumeda.timeschedule.TimeScheduleData
 import kumeda.timeschedule.data.TimeScheduleDatabase
 import kumeda.timeschedule.list.ListAdapter
 import kumeda.timeschedule.viewmodel.TimeScheduleViewModel
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -116,9 +119,26 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
 
         if (AddObject.selectTime == 1) {
             start_time.text = setTime
+            Log.d("date型へ変更","${setTime.toDate()}")
         }
         if (AddObject.selectTime == 2) {
             end_time.text = setTime
         }
+    }
+
+    fun String.toDate(pattern: String = "HH:mm"): Date? {
+        val sdFormat = try {
+            SimpleDateFormat(pattern)
+        } catch (e: IllegalArgumentException) {
+            null
+        }
+        val date = sdFormat?.let {
+            try {
+                it.parse(this)
+            } catch (e: ParseException){
+                null
+            }
+        }
+        return date
     }
 }
