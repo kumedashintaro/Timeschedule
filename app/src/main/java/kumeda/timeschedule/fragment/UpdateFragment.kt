@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.fragment_update.view.*
 import kumeda.timeschedule.R
 import kumeda.timeschedule.TimeScheduleData
 import kumeda.timeschedule.viewmodel.TimeScheduleViewModel
+import java.util.*
 
 class UpdateFragment : Fragment() {
 
@@ -47,6 +48,7 @@ class UpdateFragment : Fragment() {
     private fun updateItem() {
         val title = "タイトル"
         val content = update_content_edit.text.toString()
+        val starTime = Date()
 
         print("title$title")
 
@@ -55,7 +57,8 @@ class UpdateFragment : Fragment() {
             val updateTimeSchedule = TimeScheduleData(
                 args.currentTimeSchedule.id,
                 title,
-                content
+                content,
+                starTime
             )
 
             timeScheduleViewModel.updateTimeSchedule(updateTimeSchedule)

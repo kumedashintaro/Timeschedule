@@ -10,6 +10,8 @@ import kotlinx.android.synthetic.main.custom_row.view.*
 import kumeda.timeschedule.R
 import kumeda.timeschedule.TimeScheduleData
 import kumeda.timeschedule.fragment.AddFragmentDirections
+import kotlinx.android.synthetic.main.custom_row.view.startTime_text
+import java.text.SimpleDateFormat
 
 
 class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
@@ -31,9 +33,12 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val df = SimpleDateFormat("HH:mm")
+
         val currentItem = timeScheduleList[position]
         holder.itemView.id_text.text = currentItem.id.toString()
         holder.itemView.content_text.text = currentItem.content
+        holder.itemView.startTime_text.text =  df.format(currentItem.startTime)
 
         holder.itemView.rowLayout.setOnClickListener {
             val action = AddFragmentDirections.actionAddFragmentToUpdateFragment(currentItem)

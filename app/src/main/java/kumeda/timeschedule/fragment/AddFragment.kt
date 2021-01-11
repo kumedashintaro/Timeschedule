@@ -41,11 +41,8 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
 
     var hour = 0
     var minute = 0
-    private var savedHour = 0
-    private var savedMinute = 0
 
-    private lateinit var db: TimeScheduleDatabase
-    private lateinit var dao: TimeScheduleDAO
+    private var startTime = Date()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -73,13 +70,11 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
             TimePickerDialog(activity, this, hour, minute, true).show()
             AddObject.selectTime = 1
 
-
         }
 
         view.end_time.setOnClickListener {
             TimePickerDialog(activity, this, hour, minute, true).show()
             AddObject.selectTime = 2
-
         }
 
         view.add_button.setOnClickListener {
@@ -93,14 +88,19 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
 
         AddObject.title = title_edit.text.toString()
         val contents = add_contents_edit.text.toString()
+
+
+        //入力をクリア
         add_contents_edit.text.clear()
-        //TODO 時間を実装
+        start_time.text = "00:00"
+        end_time.text = "00:00"
 
         if (inputCheck(AddObject.title, contents)) {
             val timeScheduleData = TimeScheduleData(
                 0,
                 AddObject.title,
-                contents
+                contents,
+                startTime
             )
             //databaseに追加
             timeScheduleViewModel.addTimeSchedule(timeScheduleData)
@@ -119,7 +119,8 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
 
         if (AddObject.selectTime == 1) {
             start_time.text = setTime
-            Log.d("date型へ変更","${setTime.toDate()}")
+            startTime = setTime.toDate()!!
+            Log.d("date型へ変更", "${setTime.toDate()}")
         }
         if (AddObject.selectTime == 2) {
             end_time.text = setTime
