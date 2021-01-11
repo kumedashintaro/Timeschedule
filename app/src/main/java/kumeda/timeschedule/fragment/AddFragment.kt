@@ -3,27 +3,22 @@ package kumeda.timeschedule.fragment
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TimePicker
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_add.*
-import kotlinx.android.synthetic.main.fragment_add.start_time
 import kotlinx.android.synthetic.main.fragment_add.view.*
-import kumeda.timeschedule.*
-import kumeda.timeschedule.data.TimeScheduleDAO
+import kumeda.timeschedule.R
 import kumeda.timeschedule.TimeScheduleData
-import kumeda.timeschedule.data.TimeScheduleDatabase
 import kumeda.timeschedule.list.ListAdapter
+import kumeda.timeschedule.toDate
 import kumeda.timeschedule.viewmodel.TimeScheduleViewModel
-import java.text.ParseException
-import java.text.SimpleDateFormat
 import java.util.*
 
 
