@@ -20,6 +20,6 @@ interface TimeScheduleDAO {
     suspend fun deleteTimeSchedule(timeScheduleData: TimeScheduleData)
 
     //IDの昇順で並び変える
-    @Query("select * from time_schedule_table ORDER BY id ASC")
+    @Query("select * from time_schedule_table ORDER BY startTime ASC")
     fun readAllData(): LiveData<List<TimeScheduleData>>
 }
