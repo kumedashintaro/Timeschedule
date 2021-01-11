@@ -13,5 +13,6 @@ class TimeScheduleData(
     var id: Int,
     val title: String,
     val content: String,
-    val startTime: Date
+    val startTime: Date,
+    val endTime: Date
 ) : Parcelable

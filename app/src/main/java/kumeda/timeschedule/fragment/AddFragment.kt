@@ -43,6 +43,7 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
     var minute = 0
 
     private var startTime = Date()
+    private var endTime = Date()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -89,7 +90,6 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
         AddObject.title = title_edit.text.toString()
         val contents = add_contents_edit.text.toString()
 
-
         //入力をクリア
         add_contents_edit.text.clear()
         start_time.text = "00:00"
@@ -100,7 +100,8 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
                 0,
                 AddObject.title,
                 contents,
-                startTime
+                startTime,
+                endTime
             )
             //databaseに追加
             timeScheduleViewModel.addTimeSchedule(timeScheduleData)
@@ -120,10 +121,10 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
         if (AddObject.selectTime == 1) {
             start_time.text = setTime
             startTime = setTime.toDate()!!
-            Log.d("date型へ変更", "${setTime.toDate()}")
         }
         if (AddObject.selectTime == 2) {
             end_time.text = setTime
+            endTime = setTime.toDate()!!
         }
     }
 }

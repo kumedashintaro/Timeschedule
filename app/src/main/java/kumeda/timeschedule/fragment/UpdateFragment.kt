@@ -49,8 +49,7 @@ class UpdateFragment : Fragment() {
         val title = "タイトル"
         val content = update_content_edit.text.toString()
         val starTime = Date()
-
-        print("title$title")
+        val endTime = Date()
 
         if (inputCheck(content)) {
 
@@ -58,7 +57,8 @@ class UpdateFragment : Fragment() {
                 args.currentTimeSchedule.id,
                 title,
                 content,
-                starTime
+                starTime,
+                endTime
             )
 
             timeScheduleViewModel.updateTimeSchedule(updateTimeSchedule)
@@ -76,7 +76,6 @@ class UpdateFragment : Fragment() {
         findNavController().navigate(R.id.action_updateFragment_to_addFragment)
         Toast.makeText(requireContext(), "削除したで!", Toast.LENGTH_LONG).show()
     }
-
 
     private fun inputCheck(contents: String): Boolean {
         return !(TextUtils.isEmpty(contents))

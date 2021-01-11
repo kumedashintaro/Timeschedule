@@ -39,6 +39,7 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
         holder.itemView.id_text.text = currentItem.id.toString()
         holder.itemView.content_text.text = currentItem.content
         holder.itemView.startTime_text.text =  df.format(currentItem.startTime)
+        holder.itemView.endTime_text.text =  df.format(currentItem.endTime)
 
         holder.itemView.rowLayout.setOnClickListener {
             val action = AddFragmentDirections.actionAddFragmentToUpdateFragment(currentItem)
