@@ -125,20 +125,4 @@ class AddFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
             end_time.text = setTime
         }
     }
-
-    fun String.toDate(pattern: String = "HH:mm"): Date? {
-        val sdFormat = try {
-            SimpleDateFormat(pattern)
-        } catch (e: IllegalArgumentException) {
-            null
-        }
-        val date = sdFormat?.let {
-            try {
-                it.parse(this)
-            } catch (e: ParseException){
-                null
-            }
-        }
-        return date
-    }
 }
