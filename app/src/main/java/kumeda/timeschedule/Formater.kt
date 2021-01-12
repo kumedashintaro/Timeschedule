@@ -19,3 +19,9 @@ fun String.toDate(pattern: String = "HH:mm"): Date? {
     }
     return date
 }
+
+class FormaterHHMM {
+    companion object {
+        val df = SimpleDateFormat("HH:mm")
+    }
+}

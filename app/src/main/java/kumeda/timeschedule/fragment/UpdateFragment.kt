@@ -2,16 +2,17 @@ package kumeda.timeschedule.fragment
 
 import android.os.Bundle
 import android.text.TextUtils
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import kotlinx.android.synthetic.main.fragment_update.*
 import kotlinx.android.synthetic.main.fragment_update.view.*
+import kumeda.timeschedule.FormaterHHMM
 import kumeda.timeschedule.R
 import kumeda.timeschedule.TimeScheduleData
 import kumeda.timeschedule.viewmodel.TimeScheduleViewModel
@@ -33,6 +34,8 @@ class UpdateFragment : Fragment() {
         timeScheduleViewModel = ViewModelProvider(this).get(TimeScheduleViewModel::class.java)
 
         view.update_content_edit.setText(args.currentTimeSchedule.content)
+        view.update_start_time.text = FormaterHHMM.df.format(args.currentTimeSchedule.startTime)
+        view.update_end_time.text = FormaterHHMM.df.format(args.currentTimeSchedule.endTime)
 
         view.update_button.setOnClickListener {
             updateItem()

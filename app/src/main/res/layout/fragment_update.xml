@@ -7,7 +7,7 @@
     tools:context=".fragment.UpdateFragment">
 
     <TextView
-        android:id="@+id/end_time"
+        android:id="@+id/update_end_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -28,10 +28,10 @@
         android:text="修正"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/end_time" />
+        app:layout_constraintTop_toTopOf="@+id/update_end_time" />
 
     <TextView
-        android:id="@+id/start_time"
+        android:id="@+id/update_start_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -48,11 +48,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_baseline_trending_flat_24"
-        app:layout_constraintBottom_toBottomOf="@+id/start_time"
-        app:layout_constraintEnd_toStartOf="@+id/end_time"
+        app:layout_constraintBottom_toBottomOf="@+id/update_start_time"
+        app:layout_constraintEnd_toStartOf="@+id/update_end_time"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/start_time"
-        app:layout_constraintTop_toTopOf="@+id/start_time" />
+        app:layout_constraintStart_toEndOf="@+id/update_start_time"
+        app:layout_constraintTop_toTopOf="@+id/update_start_time" />
 
     <EditText
         android:id="@+id/update_content_edit"
@@ -72,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="削除"
-        app:layout_constraintBottom_toTopOf="@+id/end_time"
+        app:layout_constraintBottom_toTopOf="@+id/update_end_time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
